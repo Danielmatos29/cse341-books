@@ -1,7 +1,7 @@
 import { getBookById } from "../models/book.js";
 
 const getBookByIdHandler = async (req, res) => {
-  const requestedId = req.params.id;
+    const requestedId = req.params.id;
 
     try {
         const book = await getBookById(requestedId);
