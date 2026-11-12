@@ -44,7 +44,7 @@ const updateAuthorController = async (req, res) => {
         const { id } = req.params;
         const { name, birthYear } = req.body;
         
-        if (!name) {
+        if (!name || !birthYear) {
             return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'Missing required fields.' } });
         }
         const author = await getAuthorById(id);
