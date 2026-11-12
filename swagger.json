@@ -438,6 +438,257 @@
           }
         }
       }
+    },
+    "/book": {
+      "post": {
+        "summary": "Create a book",
+        "tags": [
+          "Books"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "_id",
+                  "title",
+                  "authorId",
+                  "publicationDate"
+                ],
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "Unique custom book ID",
+                    "example": "b1"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Example Book"
+                  },
+                  "authorId": {
+                    "type": "string",
+                    "description": "ID of the book's author",
+                    "example": "a1"
+                  },
+                  "publicationDate": {
+                    "type": "string",
+                    "description": "The book's publication date",
+                    "example": "2024-01-15"
+                  }
+                }
+              },
+              "example": {
+                "_id": "b1",
+                "title": "Example Book",
+                "authorId": "a1",
+                "publicationDate": "2024-01-15"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Book created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid required fields",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "INVALID_REQUEST",
+                  "message": "Missing required fields"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "A book with this ID already exists",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "BOOK_ALREADY_EXISTS",
+                  "message": "Book with id \"b1\" already exists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR",
+                    "message": "An unexpected server error occurred."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "put": {
+        "summary": "Update a book",
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "The custom ID of the book to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "authorId",
+                  "publicationDate"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Updated Example Book"
+                  },
+                  "authorId": {
+                    "type": "string",
+                    "example": "a1"
+                  },
+                  "publicationDate": {
+                    "type": "string",
+                    "example": "2024-01-15"
+                  }
+                }
+              },
+              "example": {
+                "title": "Updated Example Book",
+                "authorId": "a1",
+                "publicationDate": "2024-01-15"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Book updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid required fields",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "INVALID_REQUEST",
+                  "message": "Missing required fields"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "BOOK_NOT_FOUND",
+                  "message": "No book with the id \"b1\" exists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR",
+                    "message": "An unexpected server error occurred."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a book",
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "The custom ID of the book to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "BOOK_NOT_FOUND",
+                  "message": "No book with the id \"b1\" exists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": {
+                    "code": "INTERNAL_SERVER_ERROR",
+                    "message": "An unexpected server error occurred."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {},
