@@ -68,7 +68,7 @@ const deleteBookController = async (req, res) => {
         }
 
         const deletedBook = await deleteBook(id)
-        return res.status(200).json(deletedBook)
+        return res.status(204).end()
     }
     catch(error){
         return res.status(500).json({ error: { code: 'INTERNAL_SERVER_ERROR', message: 'An unexpected server error occurred.' } });
